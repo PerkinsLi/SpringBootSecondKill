@@ -6,6 +6,6 @@ import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 
 public interface SecondKillService {
 
-	OrderInfo secondKill(User user, SecondKillGoodsVo goods);
+	OrderInfo secondKill(User user, SecondKillGoodsVo goods, String goodsNumber, String addressId);
 
 }

@@ -50,9 +50,9 @@ public class SecondKillController {
 			return "goods/second_kill_fail";
 		}
 		
-		OrderInfo orderInfo = skService.secondKill(user, goods);
-		model.addAttribute("orderInfo", orderInfo);
-		model.addAttribute("goods", goods);
+		//OrderInfo orderInfo = skService.secondKill(user, goods);
+//		model.addAttribute("orderInfo", orderInfo);
+//		model.addAttribute("goods", goods);
 		return "order/order_detail";
 	}
 }

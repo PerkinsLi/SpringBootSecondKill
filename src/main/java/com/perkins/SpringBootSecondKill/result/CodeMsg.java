@@ -19,6 +19,22 @@ public class CodeMsg {
 	public static final CodeMsg SECOND_KILL_ERROR = new CodeMsg(500301, "秒杀失败");
 	public static final CodeMsg REPEAT_SECOND_KILL = new CodeMsg(500302, "不能重复秒杀");
 	
+	// 地址模块5004
+	public static final CodeMsg ADDRESS_INSERT_ERROR = new CodeMsg(500400, "新增地址成功");
+	public static final CodeMsg ADDRESS_INSERT_SUCCESS = new CodeMsg(500401, "新增地址失败");
+	public static final CodeMsg ADDRESS_UPDATE_ERROR = new CodeMsg(500402, "修改地址失败");
+	public static final CodeMsg ADDRESS_UPDATE_SUCCESS = new CodeMsg(500403, "修改地址成功");
+	public static final CodeMsg ADDRESS_DELETE_ERROR = new CodeMsg(500404, "删除地址失败");
+	public static final CodeMsg ADDRESS_DELETE_SUCCESS = new CodeMsg(500405, "删除地址成功");
+	
+	//购物车模块
+	public static final CodeMsg CART_INSERT_ERROR = new CodeMsg(500400, "添加购物车成功");
+	public static final CodeMsg CART_INSERT_SUCCESS = new CodeMsg(500401, "添加购物车失败");
+	public static final CodeMsg CART_UPDATE_ERROR = new CodeMsg(500402, "修改购物车失败");
+	public static final CodeMsg CART_UPDATE_SUCCESS = new CodeMsg(500403, "修改购物车成功");
+	public static final CodeMsg CART_DELETE_ERROR = new CodeMsg(500404, "删除失败");
+	public static final CodeMsg CART_DELETE_SUCCESS = new CodeMsg(500405, "删除成功");
+	
 	private int code;
 	private String msg; 
 	

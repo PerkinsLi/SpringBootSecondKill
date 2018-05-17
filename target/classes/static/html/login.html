@@ -1,0 +1,18 @@
+
+<div class="login" ng-controller="login">
+	<div class="top">
+		<div class="left">商城登录</div>
+		<div class="right">注册新账号</div>
+	</div>
+	<div class="input-box">
+		<i class="fa fa-user-o fa-lg"></i>
+		<input type="text" id = "user" name="user"   ng-model="mobile" placeholder="手机号"/>
+	</div>
+	<div class="input-box">
+		<i class="fa fa-key fa-lg"></i>
+		<input type="password" id = "password" name="password" ng-model="password" placeholder="密码"/>
+	</div>
+	
+	<input type="button" value="登录" ng-click="login()" class="login-button"/>
+			
+</div>

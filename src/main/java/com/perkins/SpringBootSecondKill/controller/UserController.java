@@ -1,10 +1,15 @@
 package com.perkins.SpringBootSecondKill.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.perkins.SpringBootSecondKill.redis.RedisService;
+import com.alibaba.fastjson.JSONObject;
+import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.service.impl.UserServiceImpl;
 
 @RestController
@@ -14,9 +19,11 @@ public class UserController {
 	@Autowired
 	UserServiceImpl userService;
 	
-	@Autowired
-	RedisService redisService;
-	
+	@GetMapping("/get")
+	public JSONObject getUser(User user) {
+		
+		return (JSONObject) JSONObject.toJSON(user);
+	}
 	
 	
 	

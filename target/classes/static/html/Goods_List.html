@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物商城--主页</title>
+		<link rel="stylesheet" href="../css/common.css" />
+		<link rel="stylesheet" href="../css/goods_list.css" />
+		<link rel="stylesheet" href="../css/font-awesome-4.7.0/css/font-awesome.min.css" />
+	</head>
+	<body>
+		<div class="goods-list">
+			<div class="top">
+				<div class="top-content">
+					<div class="top-bar"><a href="javascript:return false">注销</a></div>
+					<div class="top-bar"><a href="javascript:return false">我的订单</a></div>
+					<div class="top-bar"><a href="javascript:return false">注册</a></div>
+					<div class="list-login"><span ng-bind="wcome"></span><span ng-bind="name"></span></div>
+				</div>
+			</div>
+			<div class="search">
+				<div class="search-warp">
+					<input type="text" placeholder="商品名称"/>
+					<div class="search-button"><span class="fa fa-search fa-2x"></span></div>
+				</div>
+				<div class="shopping">
+					<span class="fa fa-cart-plus fa-2x">
+					<span class="shopping-word">购物车</span>
+				</div>
+			</div>
+			<div class="screen">
+				<span class="title">筛选: </span>
+				<span class="skill">秒杀商品</span>
+				<div class="price">
+					<span>价格区间:</span>
+					<input type="text" class="text-input"/>
+					<div>-</div>
+					<input type="text" class="text-input"/>
+					<input type="button" value="确定" class="button-input"/>
+					<input type="button" value="取消"  class="button-input"/>
+				</div>
+			</div>
+			<div class="content">
+			    <div class="goods" ng-repeat="g in goodsList">
+			        <img ng-src="g.goodsImg" />
+			        <div class="price"><b>￥</b><b ng-bind="g.goodsPrice"></b></div>
+			        <span class="description" ng-bind="g.goodsDetail"></span>
+			        <div class="buy">
+			            <input type="text" value="1" class="input-border"/>
+			            <div class="add-reduce">
+			            <span class="fa fa-angle-up"></span>
+			            <span class="fa fa-angle-down"></span>
+			            </div>
+			            <div class="add-cart">加入购物车</div>
+			        </div>
+			    </div>
+			    
+			    
+			</div>
+			<div class="pagation">
+			    <button class="default-page">首页</button>
+			    <button class="default-page">上一页</button>
+			    <button class="number-page">1</button>
+			    <button class="number-page">2</button>
+			    <button class="number-page">3</button>
+			    <button class="number-page">4</button>
+			    <button class="number-page">5</button>
+			    <button class="default-page">下一页</button>
+			    <button class="default-page">尾页</button>
+			    
+			</div>
+		</div>
+	</body>
+</html>

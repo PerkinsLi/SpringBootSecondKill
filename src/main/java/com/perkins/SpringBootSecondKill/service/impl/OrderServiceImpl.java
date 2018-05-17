@@ -27,25 +27,19 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	@Transactional
-	public OrderInfo createOrder(User user, SecondKillGoodsVo goods) {
+	public OrderInfo createOrder(User user, SecondKillGoodsVo goods, String goodsNumber, String addressId) {
 		OrderInfo orderInfo = new OrderInfo();
-		orderInfo.setAddrId((long) 1);	// 待完善地址功能
+		orderInfo.setAddrId(Long.parseLong(addressId));	
 		orderInfo.setCreateDate(new Date());
-		orderInfo.setGoodsCount(1);  // 待完善购买功能
+		orderInfo.setGoodsCount(Integer.parseInt(goodsNumber)); 
 		orderInfo.setGoodsId(goods.getId());
 		orderInfo.setGoodsName(goods.getGoodsName());
-		orderInfo.setGoodsPrice(goods.getSecondkillGoodsPrice());//购买价格可优化
+		orderInfo.setGoodsPrice(goods.getGoodsPrice());
 		orderInfo.setStatus(0);
 		orderInfo.setUserId(user.getId());
 		
-		long orderId = orderDao.insert(orderInfo);
-		
-		SecondKillOrder sKillOrder = new SecondKillOrder();
-		sKillOrder.setGoodsId(goods.getId());
-		sKillOrder.setOrderId(orderId);
-		sKillOrder.setUserId(user.getId());
-		
-		orderDao.insertSecondKillOrder(sKillOrder);
+		orderDao.insert(orderInfo);
+
 		return orderInfo;
 	}
 

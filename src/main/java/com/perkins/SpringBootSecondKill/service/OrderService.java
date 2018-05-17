@@ -9,6 +9,6 @@ public interface OrderService {
 
 	SecondKillOrder getSecondOrderByUserIdGoodsId(Long userId, Long goodsId);
 
-	OrderInfo createOrder(User user, SecondKillGoodsVo goods);
+	OrderInfo createOrder(User user, SecondKillGoodsVo goods, String goodsNumber, String addressId);
 
 }

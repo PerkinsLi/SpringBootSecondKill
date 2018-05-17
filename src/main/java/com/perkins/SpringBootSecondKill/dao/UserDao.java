@@ -9,6 +9,6 @@ import com.perkins.SpringBootSecondKill.domain.User;
 @Mapper
 public interface UserDao {
 
-	@Select("Select * from user Where id = #{id}")
+	@Select("select * from user where id = #{id}")
 	public User getById(@Param("id") long id);
 }
