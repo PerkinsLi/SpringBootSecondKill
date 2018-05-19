@@ -1,7 +1,9 @@
 package com.perkins.SpringBootSecondKill.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import com.perkins.SpringBootSecondKill.result.CodeMsg;
 import com.perkins.SpringBootSecondKill.result.Result;
 import com.perkins.SpringBootSecondKill.service.ShopingCartService;
 import com.perkins.SpringBootSecondKill.util.PagingUtil;
+import com.perkins.SpringBootSecondKill.vo.ShopingCartVo;
 
 @RestController
 @RequestMapping("/cart")
@@ -57,8 +60,10 @@ public class ShopingCartController {
 	@GetMapping("/list")
 	public JSONObject list(String currentPage, User user) {
 		PagingUtil pUtil = new PagingUtil();
-		List<ShopingCart> list = sCartService.list(currentPage, String.valueOf(user.getId()), pUtil);
-		return (JSONObject) JSONObject.toJSON(list);
+		Map<String, Object> map = new HashMap<>();
+		List<ShopingCartVo> list = sCartService.list(currentPage, String.valueOf(user.getId()), pUtil);
+		map.put("list", list);
+		return (JSONObject) JSONObject.toJSON(map);
 	}
 	
 	

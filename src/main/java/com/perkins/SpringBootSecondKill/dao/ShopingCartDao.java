@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.perkins.SpringBootSecondKill.domain.ShopingCart;
+import com.perkins.SpringBootSecondKill.vo.ShopingCartVo;
 
 @Mapper
 public interface ShopingCartDao {
@@ -32,13 +33,18 @@ public interface ShopingCartDao {
 	@Delete("delete from shoping_cart where id = #{id}")
 	public void delete(@Param("id") long id);
 	
+	@Delete("delete from shoping_cart where user_id = #{userId} and goods_id = #{goodsId}")
+	public void deleteByUserIdGoodsId(Map<String, Object> map);
+	
 	/**
 	 * 获取购物车商品
 	 * @param map
 	 * @return
 	 */
-	@Select("select * from shoping_cart where user_id = #{userId} order by add_date ${sort} LIMIT ${offset}, ${pageSize}")
-	public List<ShopingCart> list(Map<String, Object> map);
+	@Select("select g.*, sc.id as scId, sc.user_id, sc.goods_number, sc.add_date "
+			+ "from shoping_cart sc left join goods g on sc.goods_id = g.id"
+			+ " where user_id = #{userId} order by add_date ${sort} LIMIT ${offset}, ${pageSize}")
+	public List<ShopingCartVo> list(Map<String, Object> map);
 	
 	/**
 	 * 获取购物车商品总数

@@ -13,6 +13,7 @@ import com.perkins.SpringBootSecondKill.dao.ShopingCartDao;
 import com.perkins.SpringBootSecondKill.domain.ShopingCart;
 import com.perkins.SpringBootSecondKill.service.ShopingCartService;
 import com.perkins.SpringBootSecondKill.util.PagingUtil;
+import com.perkins.SpringBootSecondKill.vo.ShopingCartVo;
 
 @Service
 public class ShopingCartServiceImpl implements ShopingCartService{
@@ -44,7 +45,7 @@ public class ShopingCartServiceImpl implements ShopingCartService{
 	}
 
 	@Override
-	public List<ShopingCart> list(String currentPage, String userId, PagingUtil pUtil) {
+	public List<ShopingCartVo> list(String currentPage, String userId, PagingUtil pUtil) {
 		
 		int cpage = 0;
 		Map<String, Object> map = new HashMap<>();
@@ -83,6 +84,12 @@ public class ShopingCartServiceImpl implements ShopingCartService{
 	public void update(ShopingCart sCart) {
 		shopingCartDao.update(sCart);
 		
+	}
+
+	@Override
+	@Transactional
+	public void deleteByUserIdGoodsId(Map<String, Object> map) {
+		shopingCartDao.deleteByUserIdGoodsId(map);	
 	}
 
 }

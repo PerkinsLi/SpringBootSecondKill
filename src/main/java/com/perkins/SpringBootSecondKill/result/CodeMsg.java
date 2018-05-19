@@ -35,6 +35,9 @@ public class CodeMsg {
 	public static final CodeMsg CART_DELETE_ERROR = new CodeMsg(500404, "删除失败");
 	public static final CodeMsg CART_DELETE_SUCCESS = new CodeMsg(500405, "删除成功");
 	
+	//订单模块
+	public static final CodeMsg ORDER_GET_LIST_ERROR = new CodeMsg(500405, "根据ids获取订单失败");
+	
 	private int code;
 	private String msg; 
 	

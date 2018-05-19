@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSONObject;
 import com.perkins.SpringBootSecondKill.domain.Address;
 import com.perkins.SpringBootSecondKill.domain.Goods;
+import com.perkins.SpringBootSecondKill.domain.OrderInfo;
 import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.service.AddressService;
 import com.perkins.SpringBootSecondKill.service.GoodsService;
@@ -32,20 +33,19 @@ public class OrderController {
 	AddressService addressService;
 	
 	@RequestMapping("/create_order")
-	public JSONObject createOrder(User user, String goodsId, String goodsNumber, String addressId) {
-		SecondKillGoodsVo goods = goodsService.getGoodsById(Long.parseLong(goodsId));
-		orderService.createOrder(user, goods, goodsNumber, addressId);
-		return null;
+	public String createOrder(User user, String goodsInformation) {
+		String orderNumber = orderService.createOrder(user, goodsInformation);
+		return orderNumber;
 	}
 	
-	@GetMapping("/get_order_information")
-	public JSONObject getOrderInformation(User user, String goodsId) {
+	@GetMapping("/order_detail")
+	public JSONObject getOrderInformation(User user, String orderNumber) {
 		Map<String, Object> map = new HashMap<>();
-		SecondKillGoodsVo goods = goodsService.getGoodsById(Long.parseLong(goodsId));
+		List<OrderInfo> orderInfos = orderService.orderListByOrderNumber(orderNumber);
 		List<Address> addresses = addressService.list(user.getId());
 		
 		map.put("user", user);
-		map.put("goods", goods);
+		map.put("orderInfos", orderInfos);
 		map.put("addresses", addresses);
 		return (JSONObject) JSONObject.toJSON(map);
 	}

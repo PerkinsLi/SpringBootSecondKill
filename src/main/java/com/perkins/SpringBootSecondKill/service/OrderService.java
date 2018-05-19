@@ -1,5 +1,7 @@
 package com.perkins.SpringBootSecondKill.service;
 
+import java.util.List;
+
 import com.perkins.SpringBootSecondKill.domain.OrderInfo;
 import com.perkins.SpringBootSecondKill.domain.SecondKillOrder;
 import com.perkins.SpringBootSecondKill.domain.User;
@@ -9,6 +11,8 @@ public interface OrderService {
 
 	SecondKillOrder getSecondOrderByUserIdGoodsId(Long userId, Long goodsId);
 
-	OrderInfo createOrder(User user, SecondKillGoodsVo goods, String goodsNumber, String addressId);
+	String createOrder(User user, String goodsInformation);
+	
+	List<OrderInfo> orderListByOrderNumber(String orderNumber);
 
 }

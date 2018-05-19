@@ -17,6 +17,8 @@ public class OrderInfo {
 	private Integer status;
 	private Date createDate;
 	private Date payDate;
+	private String orderNumber;
+	private String goodsImage;
 	
 	
 	public Long getId() {
@@ -85,6 +87,22 @@ public class OrderInfo {
 	public void setPayDate(Date payDate) {
 		this.payDate = payDate;
 	}
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+	public String getGoodsImage() {
+		return goodsImage;
+	}
+	public void setGoodsImage(String goodsImage) {
+		this.goodsImage = goodsImage;
+	}
+	
+	
+	
+	
 	
 	
 }
