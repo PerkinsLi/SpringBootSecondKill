@@ -38,10 +38,12 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("/do_login")
-	public JSONObject doLogin(HttpServletResponse response,  @Valid LoginVo loginVo) {
+	public String doLogin(HttpServletResponse response,  @Valid LoginVo loginVo) {
 		String token = userService.login(response, loginVo);
 		JSONObject succes = (JSONObject) JSONObject.toJSON(Result.success(token));
-		return succes;
+		
+		// 测试需要，真正返回数据为success
+		return token;
 	}
 	
 	/**

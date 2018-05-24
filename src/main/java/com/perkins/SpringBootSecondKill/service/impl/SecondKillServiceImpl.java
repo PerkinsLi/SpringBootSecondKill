@@ -24,12 +24,13 @@ public class SecondKillServiceImpl implements SecondKillService{
 	
 	@Override
 	@Transactional
-	public OrderInfo secondKill(User user, SecondKillGoodsVo goods, String goodsNumber, String addressId) {
+	public String secondKill(User user,SecondKillGoodsVo goods,String goodsId) {
 		
-//		String i = goodsService.reduceStock(goods) + "";
-//		if (!StringUtils.isEmpty(i)) {
-//			return orderService.createOrder(user, goods, goodsNumber, addressId);
-//		}
+		String goodsInformaton = goodsId + ":" +"1";
+		String i = goodsService.reduceStock(goods) + "";
+		if (!StringUtils.isEmpty(i)) {
+			return orderService.createSecondKillOrder(user, goods);
+		}
 		return null;
 	}
 

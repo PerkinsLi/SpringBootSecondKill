@@ -5,17 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.perkins.SpringBootSecondKill.domain.OrderInfo;
 import com.perkins.SpringBootSecondKill.domain.SecondKillOrder;
 import com.perkins.SpringBootSecondKill.domain.User;
+import com.perkins.SpringBootSecondKill.exception.GlobalException;
 import com.perkins.SpringBootSecondKill.result.CodeMsg;
+import com.perkins.SpringBootSecondKill.result.Result;
 import com.perkins.SpringBootSecondKill.service.GoodsService;
 import com.perkins.SpringBootSecondKill.service.OrderService;
 import com.perkins.SpringBootSecondKill.service.SecondKillService;
 import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 
-@Controller
+@RestController
 @RequestMapping("/sk")
 public class SecondKillController {
 
@@ -29,30 +33,25 @@ public class SecondKillController {
 	SecondKillService skService;
 	
 	@RequestMapping("/do_second_kill")
-	public String doSecondKill(Model model, User user,
-			@RequestParam("goodsId") Long goodsId) {
+	public JSONObject doSecondKill(User user,String goodsId) {
 		if (user == null) {
-			return "login";
+			return (JSONObject) JSONObject.toJSON(CodeMsg.SESSION_ERROR);
 		}
 		
-		SecondKillGoodsVo goods = goodsService.getSecondKillGoodsVoById(goodsId);
+		SecondKillGoodsVo goods = goodsService.getSecondKillGoodsVoById(Long.valueOf(goodsId));
 		int stock = goods.getStockCount();
 		
 		if (stock <= 0) {
-			model.addAttribute("errmsg", CodeMsg.SECOND_KILL_ERROR);
-			return "goods/second_kill_fail";
+			return (JSONObject) JSONObject.toJSON(CodeMsg.SECOND_KILL_ERROR);
 		}
 		
-		SecondKillOrder sKillOrder = orderService.getSecondOrderByUserIdGoodsId(user.getId(), goodsId);
+		SecondKillOrder sKillOrder = orderService.getSecondOrderByUserIdGoodsId(user.getId(), Long.valueOf(goodsId));
 		
 		if (sKillOrder != null) {
-			model.addAttribute("errmsg", CodeMsg.REPEAT_SECOND_KILL);
-			return "goods/second_kill_fail";
+			return (JSONObject) JSONObject.toJSON(CodeMsg.REPEAT_SECOND_KILL);
 		}
 		
-		//OrderInfo orderInfo = skService.secondKill(user, goods);
-//		model.addAttribute("orderInfo", orderInfo);
-//		model.addAttribute("goods", goods);
-		return "order/order_detail";
+		String orderNumber = skService.secondKill(user, goods, goodsId);
+		return (JSONObject) JSONObject.toJSON(Result.success(orderNumber));
 	}
 }

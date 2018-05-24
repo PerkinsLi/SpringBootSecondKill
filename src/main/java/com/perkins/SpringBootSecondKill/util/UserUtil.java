@@ -82,8 +82,9 @@ public class UserUtil {
 			inputStream.close();
 			bout.close();
 			String response = new String(bout.toByteArray());
-			JSONObject jo = JSON.parseObject(response);
-			String token = jo.getString("data");
+//			JSONObject jo = JSON.parseObject(response);
+//			String token = jo.getString("data");
+			String token = response;
 			System.out.println("create token : " + user.getId());
 			
 			String row = user.getId()+","+token;

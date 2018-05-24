@@ -61,7 +61,8 @@ public class UserServiceImpl implements UserService{
 		// 验证密码
 		String DBPass = user.getPassword();
 		String salt = user.getSalt();
-		String realPass = MD5Util.inputPassToDBPass(formPass, salt); // 测试需要
+		//String realPass = MD5Util.inputPassToDBPass(formPass, salt); 
+		String realPass = MD5Util.formPassToDBPass(formPass, salt); //测试需要
 		 
 		if (!realPass.equals(DBPass)) {
 			throw new GlobalException(CodeMsg.PASSWORD_ERROR);

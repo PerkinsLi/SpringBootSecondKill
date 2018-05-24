@@ -1,13 +1,11 @@
 package com.perkins.SpringBootSecondKill.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +39,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional
 	public String createOrder(User user, String goodsInformation) {
+
 		String[] goodsAndNumber = goodsInformation.split(",");
 		String orderNumber = String.valueOf(new Date().getTime());
 		
@@ -74,6 +73,35 @@ public class OrderServiceImpl implements OrderService{
 		
 		return orderNumber;
 	}
+	
+	@Transactional
+	public String createSecondKillOrder(User user, SecondKillGoodsVo goods) {
+		int goodsNumber = 1;	//秒杀商品数量
+		String orderNumber = String.valueOf(new Date().getTime());
+		OrderInfo orderInfo = new OrderInfo();
+
+		orderInfo.setId(orderInfo.getId());
+		orderInfo.setAddrId(2L);	
+		orderInfo.setCreateDate(new Date());
+		orderInfo.setGoodsCount(goodsNumber); 
+		orderInfo.setGoodsId(goods.getId());
+		orderInfo.setGoodsName(goods.getGoodsName());
+		orderInfo.setGoodsPrice(goods.getGoodsPrice());
+		orderInfo.setStatus(0);
+		orderInfo.setUserId(user.getId());
+		orderInfo.setOrderNumber(orderNumber);
+		orderInfo.setGoodsImage(goods.getGoodsImg());
+		
+		orderDao.insert(orderInfo);
+		
+		SecondKillOrder sKillOrder = new SecondKillOrder();
+		sKillOrder.setGoodsId(goods.getId());
+		sKillOrder.setOrderId(orderInfo.getId());
+		sKillOrder.setUserId(user.getId());
+		orderDao.insertSecondKillOrder(sKillOrder);
+		
+		return orderNumber;
+		}
 
 	@Override
 	public List<OrderInfo> orderListByOrderNumber(String orderNumber) {

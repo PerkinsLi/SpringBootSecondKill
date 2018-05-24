@@ -13,6 +13,8 @@ public interface OrderService {
 
 	String createOrder(User user, String goodsInformation);
 	
+	public String createSecondKillOrder(User user, SecondKillGoodsVo goods);
+	
 	List<OrderInfo> orderListByOrderNumber(String orderNumber);
 
 }
