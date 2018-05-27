@@ -48,7 +48,7 @@ public class ShopingCartServiceImpl implements ShopingCartService{
 	public List<ShopingCartVo> list(String currentPage, String userId, PagingUtil pUtil) {
 		
 		int cpage = 0;
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		pUtil.setTotalCount(shopingCartDao.count(Long.parseLong(userId)));
 		

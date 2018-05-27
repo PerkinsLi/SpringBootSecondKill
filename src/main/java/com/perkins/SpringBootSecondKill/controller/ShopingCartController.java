@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.perkins.SpringBootSecondKill.dao.ShopingCartDao;
 import com.perkins.SpringBootSecondKill.domain.ShopingCart;
 import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.result.CodeMsg;
@@ -60,7 +59,7 @@ public class ShopingCartController {
 	@GetMapping("/list")
 	public JSONObject list(String currentPage, User user) {
 		PagingUtil pUtil = new PagingUtil();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<ShopingCartVo> list = sCartService.list(currentPage, String.valueOf(user.getId()), pUtil);
 		map.put("list", list);
 		return (JSONObject) JSONObject.toJSON(map);

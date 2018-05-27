@@ -14,6 +14,8 @@ import com.perkins.SpringBootSecondKill.domain.OrderInfo;
 import com.perkins.SpringBootSecondKill.domain.SecondKillOrder;
 import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.exception.GlobalException;
+import com.perkins.SpringBootSecondKill.redis.OrderKey;
+import com.perkins.SpringBootSecondKill.redis.RedisService;
 import com.perkins.SpringBootSecondKill.result.CodeMsg;
 import com.perkins.SpringBootSecondKill.service.GoodsService;
 import com.perkins.SpringBootSecondKill.service.OrderService;
@@ -25,17 +27,36 @@ public class OrderServiceImpl implements OrderService{
 
 	@Autowired
 	OrderDao orderDao;
+	
 	@Autowired
 	GoodsService goodsService;
+	
 	@Autowired
 	ShopingCartService sCartService;
+	
+	@Autowired
+	RedisService redisService;
 	
 	@Override
 	public SecondKillOrder getSecondOrderByUserIdGoodsId(Long userId, Long goodsId) {
 		
 		return orderDao.getSecondKillOrderByUserIdGoodsId(userId, goodsId);
 	}
+	
+	/**
+	 * 从redis获取秒杀订单
+	 * @param userId
+	 * @param goodsId
+	 * @return
+	 */
+	public OrderInfo getSecondOrderByUserIdGoodsIdFromRedis(Long userId, Long goodsId) {
+		
+		return redisService.get(OrderKey.getSKOrderByUidGid, ""+userId+"_"+goodsId, OrderInfo.class);
+	}
 
+	/**
+	 * 创建订单
+	 */
 	@Override
 	@Transactional
 	public String createOrder(User user, String goodsInformation) {
@@ -44,7 +65,7 @@ public class OrderServiceImpl implements OrderService{
 		String orderNumber = String.valueOf(new Date().getTime());
 		
 		for (String str : goodsAndNumber) {
-			Map<String, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			String[] ids = str.split(":");
 			long goodsId = Long.valueOf(ids[0]);
 			int goodsNumber = Integer.valueOf(ids[1]);
@@ -74,6 +95,9 @@ public class OrderServiceImpl implements OrderService{
 		return orderNumber;
 	}
 	
+	/**
+	 * 创建秒杀订单
+	 */
 	@Transactional
 	public String createSecondKillOrder(User user, SecondKillGoodsVo goods) {
 		int goodsNumber = 1;	//秒杀商品数量
@@ -100,9 +124,15 @@ public class OrderServiceImpl implements OrderService{
 		sKillOrder.setUserId(user.getId());
 		orderDao.insertSecondKillOrder(sKillOrder);
 		
+		//存入redis，判断是否重复秒杀时使用，减少数据库访问
+		redisService.set(OrderKey.getSKOrderByUidGid, ""+user.getId()+"_"+goods.getId(), orderInfo);
+		
 		return orderNumber;
 		}
 
+	/**
+	 * 根据订单号获取订单
+	 */
 	@Override
 	public List<OrderInfo> orderListByOrderNumber(String orderNumber) {
 		try {

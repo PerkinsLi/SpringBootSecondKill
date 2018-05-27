@@ -32,9 +32,9 @@ public class GoodsServiceImpl implements GoodsService{
 		int cpage = 0;
         int offset = 0;
         int pagesize = 0;
-        List<SecondKillGoodsVo> list = new ArrayList<>();
+        List<SecondKillGoodsVo> list = new ArrayList<SecondKillGoodsVo>();
         Map<String, Object> map = new HashMap<String, Object>();
-        Map<String, Object> countMap = new HashMap<>();
+        Map<String, Object> countMap = new HashMap<String, Object>();
         countMap.put("searchText", searchText);
         countMap.put("minPrice", minPrice);
         countMap.put("maxPrice", maxPrice);
@@ -93,11 +93,11 @@ public class GoodsServiceImpl implements GoodsService{
 	 * 减少秒杀商品库存
 	 */
 	@Override
-	public int reduceStock(SecondKillGoodsVo goods) {
+	public boolean reduceStock(SecondKillGoodsVo goods) {
 		SecondKillGoods g = new SecondKillGoods();
 		g.setGoodsId(goods.getId());
 		int i = goodsDao.reduceStock(g);
-		return i;
+		return i>0;
 	}
 
 	/**
@@ -118,9 +118,9 @@ public class GoodsServiceImpl implements GoodsService{
 		int cpage = 0;
         int offset = 0;
         int pagesize = 0;
-        List<SecondKillGoodsVo> list = new ArrayList<>();
+        List<SecondKillGoodsVo> list = new ArrayList<SecondKillGoodsVo>();
         Map<String, Object> map = new HashMap<String, Object>();
-        Map<String, Object> countMap = new HashMap<>();
+        Map<String, Object> countMap = new HashMap<String, Object>();
         countMap.put("searchText", searchText);
         countMap.put("minPrice", minPrice);
         countMap.put("maxPrice", maxPrice);
@@ -184,6 +184,11 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public SecondKillGoodsVo getSecondKillGoodsById(Long id) {
 		return goodsDao.getSecondKillGoodsVoById(id);
+	}
+
+	@Override
+	public List<SecondKillGoodsVo> allListGoods() {
+		return goodsDao.allListGoods();
 	}
 	
 

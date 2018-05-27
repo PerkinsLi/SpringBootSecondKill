@@ -15,6 +15,14 @@ import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 
 @Mapper
 public interface GoodsDao {
+	
+	/**
+	 * 获取所有的秒杀商品信息
+	 * @return
+	 */
+	@Select("select skg.second_kill_goods_price, skg.stock_count, skg.start_date, skg.end_date, g.* "
+			+ "from second_kill_goods skg left join goods g on skg.goods_id = g.id")
+	public List<SecondKillGoodsVo> allListGoods();
 
 	/**
 	 * 获取商品

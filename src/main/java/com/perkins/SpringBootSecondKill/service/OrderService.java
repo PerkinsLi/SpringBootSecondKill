@@ -10,6 +10,8 @@ import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 public interface OrderService {
 
 	SecondKillOrder getSecondOrderByUserIdGoodsId(Long userId, Long goodsId);
+	
+	OrderInfo getSecondOrderByUserIdGoodsIdFromRedis(Long userId, Long goodsId);
 
 	String createOrder(User user, String goodsInformation);
 	

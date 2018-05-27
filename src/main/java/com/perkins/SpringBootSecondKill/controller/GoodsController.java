@@ -4,17 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -43,7 +36,7 @@ public class GoodsController {
 			String minPrice, String maxPrice, String goods,  User user) {
 		
 		PagingUtil pUtil = new PagingUtil();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if ("skgoods".equals(goods)) {
 			List<SecondKillGoodsVo> goodsList = goodService.listSecondKillGoods(searchText, sort, pageSize, currentPage, minPrice, maxPrice, pUtil);
@@ -66,7 +59,7 @@ public class GoodsController {
 		
 		int secondkillStatus = 0;	//秒杀状态 :0 未开始, 1 正在进行中, 2 秒杀已结束
 		int remainSeconds = 0;	//离秒杀开始还剩多少秒
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if ("skgoods".equals(goods)) {
 			SecondKillGoodsVo g = goodService.getSecondKillGoodsVoById(Long.valueOf(id));

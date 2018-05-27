@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.perkins.SpringBootSecondKill.domain.Address;
-import com.perkins.SpringBootSecondKill.domain.Goods;
 import com.perkins.SpringBootSecondKill.domain.OrderInfo;
 import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.service.AddressService;
 import com.perkins.SpringBootSecondKill.service.GoodsService;
 import com.perkins.SpringBootSecondKill.service.OrderService;
-import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 
 @RestController
 @RequestMapping("/order")
@@ -40,7 +38,7 @@ public class OrderController {
 	
 	@GetMapping("/order_detail")
 	public JSONObject getOrderInformation(User user, String orderNumber) {
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		List<OrderInfo> orderInfos = orderService.orderListByOrderNumber(orderNumber);
 		List<Address> addresses = addressService.list(user.getId());
 		

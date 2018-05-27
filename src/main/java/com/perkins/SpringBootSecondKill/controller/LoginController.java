@@ -6,15 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.perkins.SpringBootSecondKill.domain.User;
 import com.perkins.SpringBootSecondKill.redis.RedisService;
 import com.perkins.SpringBootSecondKill.redis.UserKey;
 import com.perkins.SpringBootSecondKill.result.Result;
@@ -38,11 +33,24 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("/do_login")
-	public String doLogin(HttpServletResponse response,  @Valid LoginVo loginVo) {
+	public JSONObject doLogin(HttpServletResponse response,  @Valid LoginVo loginVo) {
 		String token = userService.login(response, loginVo);
 		JSONObject succes = (JSONObject) JSONObject.toJSON(Result.success(token));
 		
-		// 测试需要，真正返回数据为success
+		return succes;
+	}
+	
+	/**
+	 * 用于生成多个用户cookie的测试login
+	 * @param response
+	 * @param loginVo
+	 * @return
+	 */
+	@RequestMapping("/test_login")
+	public String testLogin(HttpServletResponse response,  @Valid LoginVo loginVo) {
+		String token = userService.login(response, loginVo);
+		//JSONObject succes = (JSONObject) JSONObject.toJSON(Result.success(token));
+		
 		return token;
 	}
 	

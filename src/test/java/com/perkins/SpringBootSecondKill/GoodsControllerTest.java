@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -49,7 +47,7 @@ public class GoodsControllerTest {
 	    
 	    @Test    
 	    public void listGoods() throws Exception {    
-	        Map<String, Object> map = new HashMap<>();  
+	        Map<String, Object> map = new HashMap<String, Object>();  
 	        MvcResult result = mockMvc.perform(post("/goods/to_list").contentType(MediaType.APPLICATION_JSON).content(JSONObject.toJSONString(map))) 
 	                .andExpect(status().isOk())// 模拟向testRest发送get请求    
 	                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))// 预期返回值的媒体类型text/plain;charset=UTF-8    

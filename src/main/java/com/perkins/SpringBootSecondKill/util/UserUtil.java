@@ -31,7 +31,7 @@ public class UserUtil {
 			user.setName("user"+i);
 			user.setRegisterDate(new Date());
 			user.setSalt("1a2b3c4d");
-			user.setPassword(MD5Util.inputPassToDBPass("1a2b3c4d", user.getSalt()));
+			user.setPassword("1a2b3c4d");
 			users.add(user);
 		}
 //		System.out.println("create user");
@@ -54,7 +54,7 @@ public class UserUtil {
 //		conn.close();
 //		System.out.println("insert to db");
 		//登录，生成token
-		String urlString = "http://localhost:8080/login/do_login";
+		String urlString = "http://localhost:8080/login/test_login";
 		File file = new File("F:/tokens.txt");
 		if(file.exists()) {
 			file.delete();
@@ -69,7 +69,7 @@ public class UserUtil {
 			co.setRequestMethod("POST");
 			co.setDoOutput(true);
 			OutputStream out = co.getOutputStream();
-			String params = "mobile="+user.getId()+"&password="+MD5Util.inputPassFormPass("1a2b3c4d");
+			String params = "mobile="+user.getId()+"&password="+"1a2b3c4d";
 			out.write(params.getBytes());
 			out.flush();
 			InputStream inputStream = co.getInputStream();

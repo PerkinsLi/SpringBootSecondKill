@@ -137,7 +137,7 @@ public class RedisService {
 	 * @param value
 	 * @return
 	 */
-	private <T> String BeanToString(T value) {
+	public static <T> String BeanToString(T value) {
 		if (value == null) {
 			return null;
 		}
@@ -163,7 +163,7 @@ public class RedisService {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private <T> T stringToBean(String str, Class<T> clas) {
+	public static <T> T stringToBean(String str, Class<T> clas) {
 		if (str == null || str.length() <= 0 || clas == null) {
 			return null;
 		}
