@@ -53,7 +53,7 @@ public class SecondKillController implements InitializingBean{
 		}
 		
 		for (SecondKillGoodsVo goods : list) {
-			redisService.set(GoodsKey.secondKillGoodsStock, ""+goods.getId(), goods.getStockCount());
+			redisService.set(GoodsKey.secondKillGoodsStock, ""+goods.getId(), goods.getStockCount()*2);
 			isOverGoods.put(goods.getId(), false);
 		}
 	}
@@ -91,25 +91,6 @@ public class SecondKillController implements InitializingBean{
 		sender.sendSKMessage(skm);
 		
 		return (JSONObject) JSONObject.toJSON(Result.success("排队中"));
-		
-		/**
-		SecondKillGoodsVo goods = goodsService.getSecondKillGoodsVoById(Long.valueOf(goodsId));
-		int stock = goods.getStockCount();
-		
-		if (stock <= 0) {
-			return (JSONObject) JSONObject.toJSON(CodeMsg.SECOND_KILL_ERROR);
-		}
-		
-		SecondKillOrder sKillOrder = orderService.getSecondOrderByUserIdGoodsId(user.getId(), Long.valueOf(goodsId));
-		
-		if (sKillOrder != null) {
-			return (JSONObject) JSONObject.toJSON(CodeMsg.REPEAT_SECOND_KILL);
-		}
-		
-		String orderNumber = skService.secondKill(user, goods, goodsId);
-		return (JSONObject) JSONObject.toJSON(Result.success(orderNumber));
-		**/
-		
 	}
 	
 	/**

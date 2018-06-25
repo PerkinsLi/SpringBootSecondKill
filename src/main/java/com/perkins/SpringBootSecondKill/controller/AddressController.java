@@ -24,7 +24,7 @@ public class AddressController {
 	
 	@PostMapping("/insert")
 	public JSONObject insert(Address address, User user) {
-		System.out.println(address.toString());
+		
 		address.setUserId(user.getId());
 		addressService.insert(address);
 		return (JSONObject) JSONObject.toJSON(Result.success(CodeMsg.ADDRESS_INSERT_SUCCESS));

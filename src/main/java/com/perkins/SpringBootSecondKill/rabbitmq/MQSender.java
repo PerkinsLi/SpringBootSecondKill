@@ -13,11 +13,11 @@ public class MQSender {
 	@Autowired
 	private AmqpTemplate amqpTemplate ;
 	
-	private static Logger log = LoggerFactory.getLogger(MQSender.class);
+	//private static Logger log = LoggerFactory.getLogger(MQSender.class);
 
 	public void sendSKMessage(SKMessage skm) {
 		String msg = RedisService.BeanToString(skm);
-		log.info(msg);
+		//log.info(msg);
 		amqpTemplate.convertAndSend(MQConfig.SK_QUEUE, msg);
 	}
 }

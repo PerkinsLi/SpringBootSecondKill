@@ -15,7 +15,7 @@ import com.perkins.SpringBootSecondKill.vo.SecondKillGoodsVo;
 @Service
 public class MQReceiver {
 	
-	private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
+	//private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
 	@Autowired
 	GoodsService goodsService;
 	
@@ -24,7 +24,7 @@ public class MQReceiver {
 
 	@RabbitListener(queues=MQConfig.SK_QUEUE)
 	public void receive(String message) {
-		log.info("MQreceive::"+message);
+		//log.info("MQreceive::"+message);
 		SKMessage skMessage = RedisService.stringToBean(message, SKMessage.class);
 		User user = skMessage.getSkUser();
 		long goodsId = skMessage.getGoodsId();
